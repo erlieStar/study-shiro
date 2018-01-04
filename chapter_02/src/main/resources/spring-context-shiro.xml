@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <!-- 安全管理器 -->
+        <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+                <property name="cacheManager" ref="cacheManager"/>
+                <property name="realm" ref="MyRealm"/>
+        </bean>
+
+        <!--realm实现-->
+        <bean id="MyRealm" class="com.makenv.realm.MyRealm">
+                <!--配置凭证匹配器-->
+                <property name="credentialsMatcher">
+                        <!--配置给密码加密的类-->
+                        <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                                <!--加密算法-->
+                                <property name="hashAlgorithmName" value="MD5"></property>
+                                <!--迭代次数-->
+                                <property name="hashIterations" value="16"></property>
+                        </bean>
+                </property>
+        </bean>
+
+        <!--配置缓存管理器,也可以不配置-->
+        <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+                <property name="cacheManagerConfigFile" value="classpath:ehcache.xml"/>
+        </bean>
+
+        <!--自动的调用配置在Spring IOC容器中shiro bean的生命周期方法，如初始化或销毁-->
+        <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+        <!--启用IOC容器中shiro的注解，但必须在配置了LifecycleBeanPostProcessor之后才可以使用-->
+        <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+              depends-on="lifecycleBeanPostProcessor"/>
+        <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+                <property name="securityManager" ref="securityManager"/>
+        </bean>
+
+        <!--配置shiroFilter，id必须和web.xml中配置的DelegatingFilterProxy的<filter-name>shiroFilter</filter-name>一致-->
+        <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+                <property name="securityManager" ref="securityManager"/>
+                <!--登陆的url-->
+                <!--我的这个项目配置了不管用，所以这个配置没有起作用，我是用index.jsp forward到/login这个url中的-->
+                <property name="loginUrl" value="/login"/>
+                <!--认证成功统一跳转的地址，如果不配置，shiro认证成功自动跳转到上一个请求路径-->
+                <!--<property name="successUrl" value=""/>-->
+                <!--没有权限访问的页面-->
+                <property name="unauthorizedUrl" value="refuse.jsp"/>
+                <!--哪些页面需要受保护，以及访问这些页面需要的权限-->
+                <!--
+                  url部分的配置为url=拦截器[参数]
+                  anon 可以被匿名访问
+                  authc 必须认证（即登陆）后才可以访问，详见博客
+                  过滤器链定义，从上向下顺序执行，一般将/**放在最下边
+                -->
+                <property name="filterChainDefinitions">
+                        <value>
+                                /login=anon
+                                /static/**=anon
+                                /**=authc
+                                <!--不需要我们去实现退出，只要去访问一个退出的url(该url是可以不存在)，由LogoutFilter拦截住，清除session-->
+                                <!--请求/logout这个地址退出，shiro清除session,这个/logout这个地址在项目中可以不存在-->
+                                /logout=logout
+                        </value>
+                </property>
+        </bean>
+
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+    <settings>
+        <setting name="logImpl" value="log4j"/>
+    </settings>
+
+    <!--没有定义别名之前需要指定全限定名，定义了这个以后，javabean 的首字母小写的非限定类名来作为它的别名-->
+    <typeAliases>
+        <package name="com.makenv.entity"/>
+    </typeAliases>
+
+</configuration>

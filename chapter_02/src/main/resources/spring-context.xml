@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+        <context:component-scan base-package="com.makenv"/>
+
+        <!--配置数据库-->
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3306/myshiro2"/>
+                <property name="username" value="root"/>
+                <property name="password" value="peng2014"/>
+        </bean>
+
+        <!--spring mvc和mybatis整合-->
+        <!--配置sqlSessionFactory-->
+        <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+                <property name="dataSource" ref="dataSource"/>
+                <property name="configLocation" value="classpath:mybatis.xml"/>
+        </bean>
+
+        <!--配置mapper的扫描器-->
+        <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+                <property name="basePackage" value="com.makenv.dao"/>
+                <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        </bean>
+
+        <bean class="com.makenv.util.SpringUtil"/>
+
+        <import resource="classpath:spring-context-shiro.xml"/>
+
+</beans>

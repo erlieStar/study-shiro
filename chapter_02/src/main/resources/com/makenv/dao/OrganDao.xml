@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.makenv.dao.OrganDao">
+
+    <resultMap id="organMap" type="organEntity">
+        <!--property为对象的列值，column为数据库中的列值-->
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="priority" property="priority" />
+        <result column="parent_id" property="parentId"/>
+        <result column="available" property="available"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="organMap">
+        SELECT * FROM sys_organization
+    </select>
+
+    <select id="findOne" parameterType="long" resultMap="organMap">
+        SELECT * FROM sys_organization where id = #{id}
+    </select>
+
+
+    <delete id="deleteOrgan" parameterType="long">
+        delete from sys_organization where id = #{id}
+    </delete>
+
+    <update id="updateOrgan" parameterType="organEntity">
+        update sys_organization set `name` = #{name},
+        `priority` = #{priority},
+        `parent_id` = #{parentId}
+        where id = #{id}
+    </update>
+
+    <insert id="createOrgan" parameterType="organEntity">
+        insert into sys_organization (`name`,`priority`,`parent_id`) values(#{name}, #{priority}, #{parentId})
+    </insert>
+
+</mapper>

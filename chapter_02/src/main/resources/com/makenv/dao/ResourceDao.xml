@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.makenv.dao.ResourceDao">
+
+    <resultMap id="resourceMap" type="resourceEntity">
+        <!--property为对象的列值，column为数据库中的列值-->
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="type" property="type" />
+        <result column="url" property="url"/>
+        <result column="priority" property="priority" />
+        <result column="parent_id" property="parentId" />
+        <result column="permission" property="permission" />
+        <result column="available" property="available"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="resourceMap">
+        select * from sys_resource
+    </select>
+
+    <select id="findOne" parameterType="long" resultMap="resourceMap">
+        select * from sys_resource where id = #{id}
+    </select>
+    
+    <delete id="deleteResource" parameterType="long">
+        delete from sys_resource where id = #{id}
+    </delete>
+
+    <insert id="createResource" parameterType="resourceEntity">
+        insert into sys_resource (`name`,`type`,`url`,`priority`,`parent_id`,`permission`) values (#{name}, #{type}, #{url}, #{priority}, #{parentId}, #{permission})
+    </insert>
+
+    <update id="updateResource" parameterType="resourceEntity">
+        update sys_resource set `name` = #{name},
+        `type` = #{type},
+        `url` = #{url},
+        `priority` = #{priority},
+        `parent_id` = #{parentId},
+        `permission` = #{permission}
+        where id = #{id}
+    </update>
+
+</mapper>

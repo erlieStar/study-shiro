@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.makenv.dao.RoleResourceDao">
+
+    <select id="findResource" parameterType="long" resultMap="com.makenv.dao.ResourceDao.resourceMap">
+        SELECT * FROM sys_resource
+        WHERE id IN
+        (
+            SELECT b.`resource_id`
+            FROM sys_role a
+            INNER JOIN sys_role_resource b
+            WHERE a.id=b.`role_id`
+            AND a.`id`= #{id}
+        )
+    </select>
+
+    <update id="saveOrUpdateRole">
+        insert into sys_role_resource
+        (
+            `role_id`,
+            `resource_id`
+        )
+        VALUES
+        <foreach collection="resourceIdList" item="item" index="index" separator=",">
+            (
+                #{roleId},
+                #{item}
+            )
+        </foreach>
+    </update>
+
+    <delete id="deleteRole" parameterType="long">
+        delete from sys_role_resource where role_id = #{id}
+    </delete>
+
+</mapper>

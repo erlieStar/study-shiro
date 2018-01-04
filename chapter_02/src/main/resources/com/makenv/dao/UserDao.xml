@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.makenv.dao.UserDao">
+
+    <select id="findByUsername" resultType="userEntity">
+        select * from sys_user where username = #{username}
+    </select>
+
+    <select id="findRoles" resultType="roleEntity">
+        SELECT * FROM sys_role
+        WHERE id IN
+        (
+            SELECT b.`role_id`
+            FROM sys_user AS a
+            INNER JOIN sys_user_role AS b
+            WHERE a.`id`=b.`user_id`
+            AND a.`id`= #{userId}
+        )
+    </select>
+
+    <select id="findAll" resultType="userEntity">
+        select * from sys_user;
+    </select>
+
+    <select id="findOne" parameterType="long" resultType="userEntity">
+        select * from sys_user where id = #{id};
+    </select>
+
+    <delete id="deleteUser" parameterType="long">
+        delete from sys_user where id = #{id}
+    </delete>
+
+    <insert id="createUser" parameterType="userEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_user (`username`,`password`,`salt`) values(#{username}, #{password}, #{salt})
+    </insert>
+
+    <update id="updateUser" parameterType="userEntity">
+        update sys_user set `username` = #{username},
+        `password` = #{password},
+        salt = #{salt}
+        where id = #{id}
+    </update>
+
+</mapper>
