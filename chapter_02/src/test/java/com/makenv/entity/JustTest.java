@@ -9,13 +9,13 @@ public class JustTest {
     public static void main(String[] args) {
 
         //加密算法
-        String hashAlgorithmName = "MD5";
+        String hashAlgorithmName = "md5";
         //凭证
         String credentials = "123";
         //随机数为盐
         String salt = new SecureRandomNumberGenerator().nextBytes().toHex();
         System.out.println("盐为 " + salt);
-        int hashIterations = 16;
+        int hashIterations = 2;
 
         Object result = new SimpleHash(hashAlgorithmName, credentials, salt, hashIterations);
         //这个是加密后的admin的密码

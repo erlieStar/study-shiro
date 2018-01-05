@@ -9,42 +9,44 @@
     <link rel="stylesheet" href="${rootPath}/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-<button class="btn btn-default" style="margin-bottom: 20px">新增用户</button>
-<table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>用户名</th>
-        <th>角色列表</th>
-        <th>操作</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach items="${userList}" var="user">
+    <shiro:hasPermission name="user:create">
+        <button class="btn btn-default" style="margin-bottom: 20px">新增用户</button>
+    </shiro:hasPermission>
+    <table class="table table-bordered">
+        <thead>
         <tr>
-            <td>${user.username}</td>
-            <td>
-                <c:forEach items="${roleMap.get(user.id)}" var="name">
-                    ${name},
-                </c:forEach>
-            </td>
-            <td>
-                <shiro:hasPermission name="user:update">
-                    <a href="${rootPath}/user/${user.id}/update">修改</a>
-                </shiro:hasPermission>
-
-                <shiro:hasPermission name="user:delete">
-                    <a href="${rootPath}/user/${user.id}/delete">删除</a>
-                </shiro:hasPermission>
-
-                <shiro:hasPermission name="user:update">
-                    <a href="${rootPath}/user/${user.id}/change">改密</a>
-                </shiro:hasPermission>
-
-            </td>
+            <th>用户名</th>
+            <th>角色列表</th>
+            <th>操作</th>
         </tr>
-    </c:forEach>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <c:forEach items="${userList}" var="user">
+            <tr>
+                <td>${user.username}</td>
+                <td>
+                    <c:forEach items="${roleMap.get(user.id)}" var="name">
+                        ${name},
+                    </c:forEach>
+                </td>
+                <td>
+                    <shiro:hasPermission name="user:update">
+                        <a href="${rootPath}/user/${user.id}/update">修改</a>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="user:delete">
+                        <a href="${rootPath}/user/${user.id}/delete">删除</a>
+                    </shiro:hasPermission>
+
+                    <shiro:hasPermission name="user:update">
+                        <a href="${rootPath}/user/${user.id}/change">改密</a>
+                    </shiro:hasPermission>
+
+                </td>
+            </tr>
+        </c:forEach>
+        </tbody>
+    </table>
 </body>
 <script src="${rootPath}/static/jquery/jquery-3.2.1.js"></script>
 <script src="${rootPath}/static/bootstrap/js/bootstrap.min.js"></script>

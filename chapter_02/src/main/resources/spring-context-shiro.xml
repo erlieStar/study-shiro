@@ -17,9 +17,9 @@
                         <!--配置给密码加密的类-->
                         <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
                                 <!--加密算法-->
-                                <property name="hashAlgorithmName" value="MD5"></property>
+                                <property name="hashAlgorithmName" value="md5"></property>
                                 <!--迭代次数-->
-                                <property name="hashIterations" value="16"></property>
+                                <property name="hashIterations" value="2"></property>
                         </bean>
                 </property>
         </bean>

@@ -2,6 +2,7 @@ package com.makenv.controller;
 
 import com.makenv.entity.ResourceEntity;
 import com.makenv.service.SysResoService;
+import com.makenv.service.SysRoleResoService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,9 @@ public class ResoController {
 
     @Autowired
     SysResoService sysResoService;
+
+    @Autowired
+    SysRoleResoService sysRoleResoService;
 
     @ModelAttribute("types")
     public ResourceEntity.ResourceType[] resourceTypes() {
@@ -72,7 +76,7 @@ public class ResoController {
     @RequiresPermissions("resource:delete")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable long id) {
-        sysResoService.deleteResource(id);
+        sysRoleResoService.deleteResource(id);
         return "redirect:/resource";
     }
 }

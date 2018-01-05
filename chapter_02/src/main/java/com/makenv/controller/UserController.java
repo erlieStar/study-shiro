@@ -76,8 +76,7 @@ public class UserController {
     @RequiresPermissions("user:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model) {
-        UserVo userVo = new UserVo();
-        model.addAttribute("user", userVo);
+        model.addAttribute("user", new UserVo());
         model.addAttribute("op", "新增");
         model.addAttribute("roleList", sysRoleService.findAll());
         return "user/edit";
@@ -87,7 +86,7 @@ public class UserController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(UserVo userVo) {
         sysUserRoleService.createUserVo(userVo);
-        return "user/edit";
+        return "redirect:/user";
     }
 
 
@@ -96,6 +95,7 @@ public class UserController {
     public String update(@PathVariable long id, Model model) {
         UserEntity userEntity = sysUserService.findOne(id);
         UserVo userVo = new UserVo(userEntity);
+        userVo.setRoleIdList(sysUserRoleService.findRoleIds(userEntity.getId()));
         model.addAttribute("user", userVo);
         model.addAttribute("op", "修改");
         model.addAttribute("roleList", sysRoleService.findAll());
@@ -106,7 +106,7 @@ public class UserController {
     @RequestMapping(value = "{id}/update", method = RequestMethod.POST)
     public String update(UserVo userVo) {
         sysUserRoleService.updateUserVo(userVo);
-        return "user/edit";
+        return "redirect:/user";
     }
 
 

@@ -9,17 +9,29 @@
     <link rel="stylesheet" href="${rootPath}/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
+
 <%--commandName指定form绑定的model--%>
 <form:form method="post" commandName="user">
     <%--通过path属性指定绑定model的值--%>
     <form:hidden path="id"/>
-    <form:hidden path="password"/>
     <form:hidden path="salt"/>
+    <form:hidden path="available"/>
 
     <div class="form-group">
         <form:label path="username">用户名</form:label>
         <form:input path="username"/>
     </div>
+
+    <c:if test="${op ne '新增'}">
+        <form:hidden path="password"/>
+    </c:if>
+
+    <c:if test="${op eq '新增'}">
+        <div class="form-group">
+            <form:label path="password">密码</form:label>
+            <form:input path="password"/>
+        </div>
+    </c:if>
 
     <div class="form-group">
         <form:label path="roleIdList">角色列表</form:label>

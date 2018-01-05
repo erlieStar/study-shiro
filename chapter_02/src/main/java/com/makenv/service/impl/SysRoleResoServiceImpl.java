@@ -1,5 +1,6 @@
 package com.makenv.service.impl;
 
+import com.makenv.dao.ResourceDao;
 import com.makenv.dao.RoleDao;
 import com.makenv.dao.RoleResourceDao;
 import com.makenv.entity.ResourceEntity;
@@ -19,6 +20,9 @@ public class SysRoleResoServiceImpl implements SysRoleResoService {
 
     @Autowired
     RoleDao roleDao;
+
+    @Autowired
+    ResourceDao resourceDao;
 
     /**
      * @Author : lilimin
@@ -81,6 +85,11 @@ public class SysRoleResoServiceImpl implements SysRoleResoService {
     public int deleteRoleVo(long roleId) {
         roleDao.deleteRole(roleId);
         return roleResourceDao.deleteRole(roleId);
+    }
+
+    public int deleteResource(long resourceId) {
+        resourceDao.deleteResource(resourceId);
+        return roleResourceDao.deleteResource(resourceId);
     }
 
 }

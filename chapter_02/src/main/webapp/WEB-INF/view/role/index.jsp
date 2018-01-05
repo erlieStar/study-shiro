@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="${rootPath}/static/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
-    <button class="btn btn-default" style="margin-bottom: 20px">新增角色</button>
+    <shiro:hasPermission name="user:create">
+        <button class="btn btn-default" style="margin-bottom: 20px">新增角色</button>
+    </shiro:hasPermission>
     <table class="table table-bordered">
         <thead>
             <tr>

@@ -33,4 +33,8 @@
         delete from sys_role_resource where role_id = #{id}
     </delete>
 
+    <delete id="deleteResource" parameterType="long">
+        delete from sys_role_resource where resource_id  = #{id}
+    </delete>
+
 </mapper>

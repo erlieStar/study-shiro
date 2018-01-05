@@ -18,10 +18,18 @@
         <label for="name">名称</label>
         <input type="text"id="name">
         <input type="hidden" id="orgid">
-        <button class="btn btn-default" id="updateBtn">修改</button>
-        <button class="btn btn-default" id="deleteBtn">删除</button>
-        <button class="btn btn-default" id="appendBtn">添加子节点</button>
-        <button class="btn btn-default" id="moveBtn">移动节点</button>
+        <shiro:hasPermission name="organization:update">
+            <button class="btn btn-default" id="updateBtn">修改</button>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="organization:delete">
+                <button class="btn btn-default" id="deleteBtn">删除</button>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="organization:create">
+                <button class="btn btn-default" id="appendBtn">添加子节点</button>
+        </shiro:hasPermission>
+        <shiro:hasPermission name="organization:update">
+                <button class="btn btn-default" id="moveBtn">移动节点</button>
+        </shiro:hasPermission>
     </div>
 </div>
 

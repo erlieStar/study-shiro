@@ -6,6 +6,7 @@ import com.makenv.entity.RoleEntity;
 import com.makenv.entity.UserEntity;
 import com.makenv.entity.vo.UserVo;
 import com.makenv.service.SysUserRoleService;
+import com.makenv.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,9 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
     @Autowired
     UserDao userDao;
 
+    @Autowired
+    PasswordUtil passwordUtil;
+
     public List<RoleEntity> findRoles(long userId) {
         return userRoleDao.findRoles(userId);
     }
@@ -38,6 +42,7 @@ public class SysUserRoleServiceImpl implements SysUserRoleService {
 
     public int createUserVo(UserVo userVo) {
         UserEntity userEntity = new UserEntity(userVo);
+        passwordUtil.encryptPassword(userEntity);
         userDao.createUser(userEntity);
 
         //创建用户和角色的关系

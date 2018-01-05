@@ -15,4 +15,6 @@ public interface RoleResourceDao {
 
     public int deleteRole(@Param("id") long roleId);
 
+    public int deleteResource(@Param("id") long resourceId);
+
 }

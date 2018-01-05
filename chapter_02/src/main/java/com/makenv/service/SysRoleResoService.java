@@ -16,4 +16,5 @@ public interface SysRoleResoService {
     public int createRoleVo(RoleVo roleVo);
     public int updateRoleVo(RoleVo roleVo);
     public int deleteRoleVo(long roleId);
+    public int deleteResource(long resourceId);
 }
