@@ -1,7 +1,7 @@
 # Shiro权限管理系统
 
 **项目介绍** 
-- 基于Spring，Spring MVC，Shiro，JSP开发,以后会陆续增加功能
+- 基于Spring，Spring MVC，Shiro，JSP开发，以后会陆续增加功能
 - 第二版用Spring Boot，Shiro，Vue.js进行前后端分离开发
 - 项目思路请访问我的博客：[我的博客](http://blog.csdn.net/zzti_erlie/article/details/78892436) 
 <br>
