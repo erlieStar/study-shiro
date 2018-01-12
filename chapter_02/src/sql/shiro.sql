@@ -56,6 +56,8 @@ INSERT INTO sys_resource values(43, '角色修改', 'button', '', 2, 41,'role:up
 INSERT INTO sys_resource values(44, '角色删除', 'button', '', 3, 41,'role:delete',1);
 INSERT INTO sys_resource values(45, '角色查看', 'button', '', 4, 41,'role:view',1);
 
+INSERT INTO sys_resource values(51, '系统日志', 'menu', '/log', 5, 1,'log:*',1);
+
 CREATE TABLE `sys_user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `username` varchar(50) DEFAULT NULL,
@@ -65,7 +67,7 @@ CREATE TABLE `sys_user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO sys_user VALUES (1,'admin','036a65b96c85ce8bb330f17da000656f','328714020c533066172e0622686e153a',1);
+INSERT INTO sys_user VALUES (1,'admin','edacefd0d298af6111ffb9c806d9ea2b','d38e6fa8c076c1e4b40f978e218d3ed3',1);
 
 CREATE TABLE `sys_role` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -97,6 +99,20 @@ INSERT INTO  sys_role_resource VALUES (1, 1, 11);
 INSERT INTO  sys_role_resource VALUES (2, 1, 21);
 INSERT INTO  sys_role_resource VALUES (3, 1, 31);
 INSERT INTO  sys_role_resource VALUES (4, 1, 41);
+INSERT INTO  sys_role_resource VALUES (5, 1, 51);
+
+CREATE TABLE `sys_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) DEFAULT NULL,
+  `operation` varchar(50) DEFAULT NULL,
+  `method` varchar(200) DEFAULT NULL,
+  `params` varchar(200) DEFAULT NULL,
+  `time` bigint(20) DEFAULT NULL,
+  `ip` varchar(50) DEFAULT NULL,
+  `create_date` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 

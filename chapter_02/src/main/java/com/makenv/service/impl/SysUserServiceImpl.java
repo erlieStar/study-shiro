@@ -4,7 +4,7 @@ import com.makenv.dao.UserDao;
 import com.makenv.entity.RoleEntity;
 import com.makenv.entity.UserEntity;
 import com.makenv.service.*;
-import com.makenv.util.PasswordUtil;
+import com.makenv.common.util.PasswordUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

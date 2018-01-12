@@ -27,7 +27,7 @@
                 <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
         </bean>
 
-        <bean class="com.makenv.util.SpringUtil"/>
+        <bean class="com.makenv.common.util.SpringUtil"/>
 
         <import resource="classpath:spring-context-shiro.xml"/>
 

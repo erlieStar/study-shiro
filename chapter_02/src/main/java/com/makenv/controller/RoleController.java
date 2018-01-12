@@ -1,5 +1,6 @@
 package com.makenv.controller;
 
+import com.makenv.common.annotation.SysLog;
 import com.makenv.entity.RoleEntity;
 import com.makenv.entity.vo.RoleVo;
 import com.makenv.service.SysResoService;
@@ -55,6 +56,7 @@ public class RoleController {
         return "role/edit";
     }
 
+    @SysLog("创建角色")
     @RequiresPermissions("role:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(RoleVo roleVo) {
@@ -75,6 +77,7 @@ public class RoleController {
         return "role/edit";
     }
 
+    @SysLog("更改角色")
     @RequiresPermissions("role:update")
     @RequestMapping(value = "{id}/update", method = RequestMethod.POST)
     public String update(RoleVo roleVo) {
@@ -82,6 +85,7 @@ public class RoleController {
         return "redirect:/role";
     }
 
+    @SysLog("删除角色")
     @RequiresPermissions("role:delete")
     @RequestMapping(value = "{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable long id) {

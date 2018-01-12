@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.makenv.dao.LogDao">
+
+    <resultMap id="logMap" type="logEntity">
+        <!--property为对象的列值，column为数据库中的列值-->
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="operation" property="operation" />
+        <result column="method" property="method"/>
+        <result column="params" property="params"/>
+        <result column="time" property="time" />
+        <result column="ip" property="ip"/>
+        <result column="create_date" property="createDate"/>
+    </resultMap>
+
+    <select id="findAll" resultMap="logMap">
+        SELECT * FROM sys_log
+    </select>
+
+    <insert id="createLog" parameterType="logEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into sys_log (`username`,`operation`,`method`,`params`,`time`,`ip`,`create_date`)
+        values(#{username}, #{operation}, #{method}, #{params}, #{time}, #{ip}, #{createDate})
+    </insert>
+
+</mapper>

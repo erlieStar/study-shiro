@@ -1,5 +1,6 @@
 package com.makenv.controller;
 
+import com.makenv.common.annotation.SysLog;
 import com.makenv.entity.ResourceEntity;
 import com.makenv.service.SysResoService;
 import com.makenv.service.SysRoleResoService;
@@ -49,6 +50,7 @@ public class ResoController {
         return "resource/edit";
     }
 
+    @SysLog("创建资源")
     @RequiresPermissions("resource:create")
     @RequestMapping(value = "/{id}/create", method = RequestMethod.POST)
     public String create(ResourceEntity resource, Model model) {
@@ -65,6 +67,7 @@ public class ResoController {
         return "resource/edit";
     }
 
+    @SysLog("更改资源")
     @RequiresPermissions("resource:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(ResourceEntity resource) {
@@ -72,7 +75,7 @@ public class ResoController {
         return "redirect:/resource";
     }
 
-
+    @SysLog("删除资源")
     @RequiresPermissions("resource:delete")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable long id) {

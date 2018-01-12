@@ -1,4 +1,4 @@
-package com.makenv.util;
+package com.makenv.common.util;
 
 import com.makenv.entity.RoleEntity;
 import com.makenv.service.SysRoleService;

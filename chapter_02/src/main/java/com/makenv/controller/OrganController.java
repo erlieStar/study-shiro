@@ -1,5 +1,6 @@
 package com.makenv.controller;
 
+import com.makenv.common.annotation.SysLog;
 import com.makenv.entity.OrganEntity;
 import com.makenv.service.SysOrganService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -36,6 +37,7 @@ public class OrganController {
         return "organ/update";
     }
 
+    @SysLog("更改组织")
     @RequiresPermissions("organization:update")
     @RequestMapping(value = "/{id}/update", method = RequestMethod.POST)
     public String update(OrganEntity organEntity) {
@@ -54,6 +56,7 @@ public class OrganController {
         return "organ/create";
     }
 
+    @SysLog("创建组织")
     @RequiresPermissions("organization:create")
     @RequestMapping(value = "/{id}/create", method = RequestMethod.POST)
     public String create(OrganEntity organEntity) {
@@ -61,6 +64,7 @@ public class OrganController {
         return "redirect:/organization";
     }
 
+    @SysLog("删除组织")
     @RequiresPermissions("organization:delete")
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable int id) {
@@ -80,6 +84,7 @@ public class OrganController {
         return "redirect:/organization";
     }
 
+    @SysLog("移动节点")
     @RequiresPermissions("organization:update")
     @RequestMapping(value = "/{id}/move", method = RequestMethod.POST)
     public String move() {

@@ -1,5 +1,6 @@
 package com.makenv.controller;
 
+import com.makenv.common.annotation.SysLog;
 import com.makenv.entity.RoleEntity;
 import com.makenv.entity.UserEntity;
 import com.makenv.entity.vo.UserVo;
@@ -73,6 +74,7 @@ public class UserController {
         return "user/index";
     }
 
+
     @RequiresPermissions("user:create")
     @RequestMapping(value = "/create", method = RequestMethod.GET)
     public String create(Model model) {
@@ -82,6 +84,7 @@ public class UserController {
         return "user/edit";
     }
 
+    @SysLog("创建用户")
     @RequiresPermissions("user:create")
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String create(UserVo userVo) {
@@ -102,6 +105,7 @@ public class UserController {
         return "user/edit";
     }
 
+    @SysLog("更改用户")
     @RequiresPermissions("user:update")
     @RequestMapping(value = "{id}/update", method = RequestMethod.POST)
     public String update(UserVo userVo) {
@@ -109,7 +113,7 @@ public class UserController {
         return "redirect:/user";
     }
 
-
+    @SysLog("删除用户")
     @RequiresPermissions("user:delete")
     @RequestMapping(value = "{id}/delete", method = RequestMethod.GET)
     public String delete(@PathVariable long id) {
@@ -128,6 +132,7 @@ public class UserController {
         return "user/change";
     }
 
+    @SysLog("更改用户密码")
     @RequiresPermissions("user:update")
     @RequestMapping(value = "{id}/change", method = RequestMethod.POST)
     public String change(@PathVariable long id, String newPassword) {
